@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import org.fxmisc.richtext.CodeArea?>
+<?import org.fxmisc.flowless.VirtualizedScrollPane?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane prefHeight="610.0" prefWidth="910.0" stylesheets="@principal-view.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jbunce.pvlpus.PrincipalViewController">
+    <top>
+        <MenuBar prefHeight="26.0" prefWidth="722.0">
+            <Menu text="Archivo">
+                <MenuItem text="Abrir carpeta" onAction="#openFolder"/>
+                <MenuItem text="Nuevo" />
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox>
+            <HBox>
+                <Label fx:id="codet" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    untitled
+                </Label>
+            </HBox>
+            <VirtualizedScrollPane fx:id="codeScrollPane" VBox.vgrow="ALWAYS">
+                <content>
+                    <CodeArea fx:id="codeArea" onKeyPressed="#onCodeAreaChange"/>
+                </content>
+            </VirtualizedScrollPane>
+        </VBox>
+    </center>
+    <right>
+        <VBox prefHeight="584.0" prefWidth="37.0" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" translateY="5" fx:id="build" onMouseClicked="#onBuildClick">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="20">
+                        <Image url="@assets/hammer.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </right>
+    <left>
+        <VBox>
+            <Label VBox.vgrow="ALWAYS" maxWidth="Infinity" fx:id="explorert"> Explorer </Label>
+            <VBox prefHeight="584.0" prefWidth="200.0" BorderPane.alignment="CENTER" fx:id="filesVbox">
+            </VBox>
+        </VBox>
+    </left>
+    <bottom>
+        <VBox>
+            <Label fx:id="logt" maxWidth="Infinity" >
+                Code log
+            </Label>
+            <ScrollPane fitToWidth="true" fitToHeight="true" maxWidth="Infinity" style="-fx-border-width: 0; -fx-focus-traversable: false" VBox.vgrow="ALWAYS">
+                <TextFlow prefHeight="200.0" prefWidth="500.0" maxWidth="Infinity" fx:id="logArea" />
+            </ScrollPane>
+        </VBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,41 @@
+.error {
+    -fx-fill: red;
+    -fx-font-weight: bold;
+}
+
+#codeArea {
+    -fx-font-family: Consolas;
+    -fx-font-size: 14px;
+}
+
+#logArea {
+    -fx-font-family: monospace;
+    -fx-font-size: 12px;
+    -fx-background-color: #9b9b9b;
+    -fx-border-width: 0;
+    -fx-focus-traversable: false;
+}
+
+#logt {
+    -fx-background-color: #494949;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+}
+
+#codet {
+    -fx-background-color: #494949;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+#filesVbox {
+    -fx-background-color: #313131;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+#explorert {
+    -fx-background-color: #494949;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
