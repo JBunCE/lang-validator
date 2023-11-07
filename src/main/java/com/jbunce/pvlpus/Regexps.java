@@ -22,7 +22,7 @@ public class Regexps {
     public static final String RETURN = "^\\s*return\\s+(("+ VALUE +")|"+ N_VAR +");$";
     public static final String VARIABLE_OPERATION = "(\\s*((("+ TYPES +")\\s+"+ N_VAR +"\\s+)|("+ N_VAR +"\\s+))->\\s+("+ N_VAR +"|([0-9]+))\\s*("+ OPERATIONS +")\\s*("+ N_VAR +"|[0-9]*);)";
     public static final String FOR_LOOP = "^((\\s*for\\s+"+ N_VAR +"\\s+[(]\\w+\\s+to\\s+\\w+[)]\\s+(->)\\s+)(("+ FUNCTION_CALL +")|([(][)][{]\\s*[}]*)))$";
-    public static final String IF = "^\\s*if\\s+([(](("+ N_VAR + VALUE +")\\s+(==|<=|=>|>|<)\\s+("+ N_VAR + VALUE +"))\\s*((&&|[|][|])\\s*("+ N_VAR + VALUE +")\\s+(==|<=|=>|>|<)\\s+("+ N_VAR + VALUE +"))*[)]\\s+then\\s+->\\s*[(][)]\\s*[{][}]*)$";
+    public static final String IF = "^\\s*if\\s+([(](("+ N_VAR + VALUE +")\\s+(==|<=|=>|>|<|!=)\\s+("+ N_VAR + VALUE +"))\\s*((&&|[|][|])\\s*("+ N_VAR + VALUE +")\\s+(==|<=|=>|>|<)\\s+("+ N_VAR + VALUE +"))*[)]\\s+then\\s+->\\s*[(][)]\\s*[{][}]*)$";
     public static final String ELSE = "^\\s*[}],\\s+(else)\\s+->\\s+[(][)]\\s*[{][}]*$";
     public static final String ALL = FUNCTION + "|" + VARIABLE_D_A + "|" + VARIABLE_ASSIGNMENT + "|" + COMMENT + "|" + FOR_LOOP + "|" + IF + "|" + ELSE + "|" + VARIABLE_OPERATION + "|^" + FUNCTION_CALL + "|" + RETURN + "|" + FUNCTION_ASSIGNMENT + "|^(\\s*[}]*)$|^(\\s*)$";
 
