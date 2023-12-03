@@ -2,6 +2,7 @@ package com.jbunce.pvlpus;
 
 import ch.qos.logback.classic.Logger;
 import com.jbunce.pvlpus.appenders.TextFlowAppender;
+import com.jbunce.pvlpus.automatapila.Validator;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -109,17 +110,16 @@ public class PrincipalViewController implements Initializable {
 
     @FXML
     public void onCodeAreaChange() {
-        Platform.runLater(() -> executor.submit(this::validate));
+
     }
 
     @FXML
     public void onBuildClick() {
-        log.info("Starting validation");
-        validate();
-        log.info("Validation finished");
+        Platform.runLater(() -> executor.submit(this::validate));
     }
 
-    private void validate () {
+    private void validate() {
+        Platform.runLater(() -> logArea.getChildren().clear());
         String text = codeArea.getText();
         String[] lines = text.split("\n");
         int braceCount = 0;
@@ -127,40 +127,24 @@ public class PrincipalViewController implements Initializable {
         while (lineStyles.size() < lines.length) {
             lineStyles.add("success");
         }
+
         while (lineStyles.size() > lines.length) {
             lineStyles.remove(lineStyles.size() - 1);
         }
 
-        Pattern pattern = Pattern.compile(Regexps.ALL);
-        for (int i = 0; i < lines.length; i++) {
-            Matcher matcher = pattern.matcher(lines[i]);
-
-            for (char ch : lines[i].toCharArray()) {
-                if (ch == '{') {
-                    braceCount++;
-                } else if (ch == '}') {
-                    braceCount--;
-                }
-            }
-
-            if (matcher.find()) {
-                lineStyles.set(i, "success");
+        for (String line : lines) {
+            Platform.runLater(() -> log.info("\n"));
+            Validator validator = new Validator(log);
+            Platform.runLater(() -> log.info("Pila inicial    "));
+            Platform.runLater(() -> log.info(String.valueOf(validator.getStack())));
+            if (validator.validate(line)) {
+                Platform.runLater(() -> log.info("    ESTA OK    "));
+                Platform.runLater(() -> log.info("Pila final " + String.valueOf(validator.getStack())));
             } else {
-                lineStyles.set(i, "error");
-                String error = ": en la línea -> " + (i + 1) + ": " + lines[i] + "\n";
-                errorLines.add(error);
+                Platform.runLater(() -> log.error("    ESTA MAL    "));
+                Platform.runLater(() -> log.error("Pila final " + String.valueOf(validator.getStack())));
             }
         }
-
-        if (braceCount != 0) {
-            String error = "Expected " + braceCount + " more '}'\n";
-            errorLines.add(error);
-        }
-
-        Platform.runLater(this::applyStyles);
-        Platform.runLater(() -> logArea.getChildren().clear());
-        errorLines.forEach(logText -> Platform.runLater(() -> log.error(logText)));
-        errorLines.clear();
     }
 
     private void applyStyles() {

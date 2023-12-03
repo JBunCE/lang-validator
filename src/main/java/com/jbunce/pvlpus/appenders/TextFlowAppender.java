@@ -27,7 +27,7 @@ public class TextFlowAppender extends AppenderBase<ILoggingEvent> {
                     text.setFill(Color.RED);
                     break;
                 case "INFO":
-                    text.setFill(Color.BLACK);
+                    text.setFill(Color.GREEN);
                     break;
             }
             textFlow.getChildren().add(text);
